@@ -52,9 +52,9 @@ export function postAnswer(quizId, answerId) {
     // - Dispatch the fetching of the next quiz
     axios.post(answerURL, { quiz_id: quizId, answer_id: answerId })
     .then(res => {
-      console.log(res)
       dispatch(selectAnswer(null))
       dispatch(setMessage(res.data.message))
+      dispatch(fetchQuiz())
     })
     .catch(err => console.log(err))
   }
