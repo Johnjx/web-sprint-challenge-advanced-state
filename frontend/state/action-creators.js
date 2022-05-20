@@ -26,7 +26,9 @@ export function setQuiz(data) {
   return { type: types.SET_QUIZ_INTO_STATE, payload: data }
 }
 
-export function inputChange() { }
+export function inputChange(name, value) { 
+  return { type: types.INPUT_CHANGE, payload: { name, value } }
+}
 
 export function resetForm() { }
 
@@ -64,6 +66,11 @@ export function postQuiz() {
     // On successful POST:
     // - Dispatch the correct message to the the appropriate state
     // - Dispatch the resetting of the form
+    axios.post(newQuizURL)
+    .then(res => {
+      console.log(res)
+    })
+    .catch(err => console.log(err))
   }
 }
 // ❗ On promise rejections, use log statements or breakpoints, and put an appropriate error message in state
