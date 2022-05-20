@@ -18,7 +18,9 @@ export function selectAnswer(answer) {
   return { type:types.SET_SELECTED_ANSWER, payload: answer }
 }
 
-export function setMessage() { }
+export function setMessage(message) { 
+  return { type: types.SET_INFO_MESSAGE, payload: message }
+}
 
 export function setQuiz(data) { 
   return { type: types.SET_QUIZ_INTO_STATE, payload: data }
@@ -51,6 +53,8 @@ export function postAnswer(quizId, answerId) {
     axios.post(answerURL, { quiz_id: quizId, answer_id: answerId })
     .then(res => {
       console.log(res)
+      dispatch(selectAnswer(null))
+      dispatch(setMessage(res.data.message))
     })
     .catch(err => console.log(err))
   }
