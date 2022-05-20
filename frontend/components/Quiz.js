@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import * as actionCreators from '../state/action-creators'
 
 export function Quiz(props) {
-  const { fetchQuiz, quiz } = props
+  const { fetchQuiz, quiz, selectAnswer } = props
 
   useEffect(() => {
     fetchQuiz()
@@ -20,14 +20,14 @@ export function Quiz(props) {
             <div id="quizAnswers">
               <div className="answer selected">
                 {quiz.answers[0].text}
-                <button>
+                <button onClick={() => selectAnswer(quiz.answers[0].answer_id)}>
                   SELECTED
                 </button>
               </div>
 
               <div className="answer">
                 {quiz.answers[1].text}
-                <button>
+                <button onClick={() => selectAnswer(quiz.answers[1].answer_id)}>
                   Select
                 </button>
               </div>
