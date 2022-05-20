@@ -34,6 +34,10 @@ export function resetForm() {
   return { type: types.RESET_FORM }
 }
 
+export function setNumbers() {
+  return { type: types.RANDOM_NUMBER }
+}
+
 // ❗ Async action creators
 export function fetchQuiz() {
   return function (dispatch) {
@@ -58,6 +62,7 @@ export function postAnswer(quizId, answerId) {
     .then(res => {
       dispatch(selectAnswer(null))
       dispatch(setMessage(res.data.message))
+      dispatch(setNumbers())
       dispatch(fetchQuiz())
     })
     .catch(err => console.log(err))

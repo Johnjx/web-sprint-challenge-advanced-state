@@ -3,15 +3,23 @@ import { connect } from 'react-redux'
 import * as actionCreators from '../state/action-creators'
 
 export function Quiz(props) {
-  const { fetchQuiz, quiz, selectAnswer, postAnswer, selectedAnswer } = props
+  const { fetchQuiz, quiz, selectAnswer, postAnswer, selectedAnswer, setNumbers, numbers } = props
 
   useEffect(() => {
-    if (!quiz) { fetchQuiz() }
+    if (!quiz) { setNumbers(),fetchQuiz() }
   }, [])
 
   const handlePost = evt => {
     evt.preventDefault()
     postAnswer(quiz.quiz_id, selectedAnswer)
+  }
+
+  const handleY = (x) => {
+    if (x === 0) {
+      return 1
+    } else {
+      return 0
+    }
   }
 
   return (
@@ -23,17 +31,17 @@ export function Quiz(props) {
             <h2>{quiz.question}</h2>
 
             <div id="quizAnswers">
-              <div className={`answer ${selectedAnswer === quiz.answers[0].answer_id ? 'selected': ''}`} onClick={() => selectAnswer(quiz.answers[0].answer_id)}>
-                {quiz.answers[0].text}
+              <div className={`answer ${selectedAnswer === quiz.answers[numbers.x].answer_id ? 'selected': ''}`} onClick={() => selectAnswer(quiz.answers[numbers.x].answer_id)}>
+                {quiz.answers[numbers.x].text}
                 <button>
-                  {selectedAnswer === quiz.answers[0].answer_id? 'SELECTED': 'Select'}
+                  {selectedAnswer === quiz.answers[numbers.x].answer_id? 'SELECTED': 'Select'}
                 </button>
               </div>
 
-              <div className={`answer ${selectedAnswer === quiz.answers[1].answer_id ? 'selected': ''}`} onClick={() => selectAnswer(quiz.answers[1].answer_id)}>
-                {quiz.answers[1].text}
+              <div className={`answer ${selectedAnswer === quiz.answers[handleY(numbers.x)].answer_id ? 'selected': ''}`} onClick={() => selectAnswer(quiz.answers[handleY(numbers.x)].answer_id)}>
+                {quiz.answers[handleY(numbers.x)].text}
                 <button>
-                {selectedAnswer === quiz.answers[1].answer_id? 'SELECTED': 'Select'}
+                {selectedAnswer === quiz.answers[handleY(numbers.x)].answer_id? 'SELECTED': 'Select'}
                 </button>
               </div>
             </div>

@@ -35,6 +35,20 @@ function quiz(state = initialQuizState, action) {
   }
 }
 
+const initialNumbers = { x: 0, y: 1}
+function numbers(state = initialNumbers, action) {
+  switch(action.type) {
+    case types.RANDOM_NUMBER: {
+      return {
+        ...state,
+        x: Math.floor(Math.random() * 2)
+      }
+    }
+    default:
+      return state
+  }
+}
+
 const initialSelectedAnswerState = null
 function selectedAnswer(state = initialSelectedAnswerState, action) {
   switch(action.type) {
@@ -79,4 +93,4 @@ function form(state = initialFormState, action) {
     }
   }
 
-export default combineReducers({ wheel, quiz, selectedAnswer, infoMessage, form })
+export default combineReducers({ wheel, quiz, selectedAnswer, infoMessage, form, numbers })
